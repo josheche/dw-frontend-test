@@ -2,6 +2,8 @@ import React from "react";
 
 import { userService, authenticationService } from "@/_services";
 
+import "./HomePage.scss";
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
