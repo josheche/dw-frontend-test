@@ -64,7 +64,7 @@ class SigninPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group -more">
                   <label htmlFor="password">Password</label>
                   <Field
                     name="password"
@@ -80,7 +80,7 @@ class SigninPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group text-center">
+                <div className="text-center">
                   <button
                     type="submit"
                     className="btn btn-dark"

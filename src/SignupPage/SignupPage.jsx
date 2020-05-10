@@ -64,7 +64,7 @@ class SignupPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group -more">
                   <label htmlFor="password">Password</label>
                   <Field
                     placeholder="test"
@@ -81,7 +81,7 @@ class SignupPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group text-center">
+                <div className="text-center">
                   <Link to="/signin" className="btn btn-dark">
                     Sign-Up
                   </Link>
