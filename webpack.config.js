@@ -18,6 +18,21 @@ module.exports = {
         test: /\.s?css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: "file-loader",
+      },
+      {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: "ttf-loader",
+            options: {
+              name: "./font/[hash].[ext]",
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {

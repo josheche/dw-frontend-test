@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { authenticationService } from "@/_services";
 
-import "./SignupPage.scss";
+import "@/_styles/AuthPage.scss";
 
 class SignupPage extends React.Component {
   constructor(props) {
@@ -20,47 +20,46 @@ class SignupPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <div className="card -mod">
           <h2>Sign-Up</h2>
           <Formik
             initialValues={{
-              username: "",
+              email: "",
               password: "",
             }}
             validationSchema={Yup.object().shape({
-              username: Yup.string().required("Username is required"),
+              email: Yup.string().required("Email is required"),
               password: Yup.string().required("Password is required"),
             })}
-            onSubmit={(
-              { username, password },
-              { setStatus, setSubmitting }
-            ) => {
+            onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
               setStatus();
             }}
           >
             {({ errors, status, touched, isSubmitting }) => (
               <Form>
                 <div className="form-group">
-                  <label htmlFor="username">Full Name</label>
+                  <label htmlFor="email">Full Name</label>
                   <Field
+                    placeholder="Test User"
                     name="fullname"
                     type="text"
                     className={"form-control"}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="email">Email</label>
                   <Field
-                    name="username"
+                    placeholder="user@email.com"
+                    name="email"
                     type="text"
                     className={
                       "form-control" +
-                      (errors.username && touched.username ? " is-invalid" : "")
+                      (errors.email && touched.email ? " is-invalid" : "")
                     }
                   />
                   <ErrorMessage
-                    name="username"
+                    name="email"
                     component="div"
                     className="invalid-feedback"
                   />
@@ -68,6 +67,7 @@ class SignupPage extends React.Component {
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <Field
+                    placeholder="test"
                     name="password"
                     type="password"
                     className={
@@ -81,8 +81,8 @@ class SignupPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group">
-                  <Link to="/signin" className="btn btn-primary">
+                <div className="form-group text-center">
+                  <Link to="/signin" className="btn btn-dark">
                     Sign-Up
                   </Link>
                 </div>
@@ -90,6 +90,12 @@ class SignupPage extends React.Component {
               </Form>
             )}
           </Formik>
+        </div>
+        <div className="wrapper_cta -left">
+          <span>Already registered? </span>
+          <Link to="/signin" className="link">
+            Sign-in
+          </Link>
         </div>
       </div>
     );

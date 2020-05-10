@@ -2,7 +2,7 @@ export function configureFakeBackend() {
   let users = [
     {
       id: 1,
-      username: "test",
+      email: "user@email.com",
       password: "test",
       firstName: "Test",
       lastName: "User",
@@ -20,13 +20,12 @@ export function configureFakeBackend() {
         if (url.endsWith("/users/authenticate") && opts.method === "POST") {
           const params = JSON.parse(opts.body);
           const user = users.find(
-            (x) =>
-              x.username === params.username && x.password === params.password
+            (x) => x.email === params.email && x.password === params.password
           );
-          if (!user) return error("Username or password is incorrect");
+          if (!user) return error("email or password is incorrect");
           return ok({
             id: user.id,
-            username: user.username,
+            email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
             token: "fake-jwt-token",

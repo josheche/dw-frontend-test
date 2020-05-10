@@ -1,0 +1,64 @@
+.auth-page {
+  font-family: "Poppins";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #5ac8fa 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  &_cta {
+    font-size: 14px;
+    margin-top: 12px;
+    &.-left {
+      align-self: flex-start;
+    }
+    &.-right {
+      align-self: flex-end;
+    }
+    .link {
+      color: #5ac8fa;
+    }
+  }
+}
+.card {
+  width: 510px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: solid 1px #f2f2f2;
+  border-radius: 0px;
+  background-color: #ffffff;
+  &.-mod {
+    padding: 50px;
+  }
+  > h2 {
+    font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+  }
+  .btn {
+    font-size: 14px;
+    padding: 15px 60px;
+    border-radius: 0px;
+  }
+  .form-group {
+    > input {
+      font-size: 14px;
+      padding: 14px 30px;
+      border: solid 1px #707070;
+      border-radius: 0px;
+      background-color: #ffffff;
+      &::placeholder {
+        color: #cccccc;
+      }
+    }
+    .invalid-feedback {
+      font-size: 12px;
+    }
+  }
+}

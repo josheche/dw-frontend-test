@@ -8,6 +8,8 @@ import { HomePage } from "@/HomePage";
 import { SigninPage } from "@/SigninPage";
 import { SignupPage } from "@/SignupPage";
 
+import "./App.scss";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -25,15 +27,15 @@ class App extends React.Component {
 
   logout() {
     authenticationService.logout();
-    history.push("/signin");
+    history.push("/");
   }
 
   render() {
     const { currentUser } = this.state;
     return (
       <Router history={history}>
-        <div>
-          {currentUser && (
+        {currentUser && (
+          <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <div className="navbar-nav">
                 <Link to="/" className="nav-item nav-link">
@@ -50,17 +52,22 @@ class App extends React.Component {
                 </a>
               </div>
             </nav>
-          )}
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6 offset-md-3">
-                <PrivateRoute exact path="/" component={HomePage} />
-                <Route path="/signin" component={SigninPage} />
-                <Route path="/signup" component={SignupPage} />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-6 offset-md-3">
+                  <PrivateRoute exact path="/" component={HomePage} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+        {!currentUser && (
+          <section className="auth-page">
+            <Route exact path="/" component={SigninPage} />
+            <Route path="/signin" component={SigninPage} />
+            <Route path="/signup" component={SignupPage} />
+          </section>
+        )}
       </Router>
     );
   }

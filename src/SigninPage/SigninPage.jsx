@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { authenticationService } from "@/_services";
 
-import "./SigninPage.scss";
+import "@/_styles/AuthPage.scss";
 
 class SigninPage extends React.Component {
   constructor(props) {
@@ -18,24 +19,21 @@ class SigninPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <div className="card -mod">
           <h2>Sign-In</h2>
           <Formik
             initialValues={{
-              username: "",
+              email: "",
               password: "",
             }}
             validationSchema={Yup.object().shape({
-              username: Yup.string().required("Username is required"),
-              password: Yup.string().required("Password is required"),
+              email: Yup.string().required('Use "user@email.com" for Email'),
+              password: Yup.string().required('Use "test" for Password'),
             })}
-            onSubmit={(
-              { username, password },
-              { setStatus, setSubmitting }
-            ) => {
+            onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
               setStatus();
-              authenticationService.signin(username, password).then(
+              authenticationService.signin(email, password).then(
                 (user) => {
                   const { from } = this.props.location.state || {
                     from: { pathname: "/" },
@@ -51,17 +49,17 @@ class SigninPage extends React.Component {
             render={({ errors, status, touched, isSubmitting }) => (
               <Form>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="email">Email</label>
                   <Field
-                    name="username"
-                    type="text"
+                    name="email"
+                    type="email"
                     className={
                       "form-control" +
-                      (errors.username && touched.username ? " is-invalid" : "")
+                      (errors.email && touched.email ? " is-invalid" : "")
                     }
                   />
                   <ErrorMessage
-                    name="username"
+                    name="email"
                     component="div"
                     className="invalid-feedback"
                   />
@@ -82,10 +80,10 @@ class SigninPage extends React.Component {
                     className="invalid-feedback"
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group text-center">
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-dark"
                     disabled={isSubmitting}
                   >
                     Sign-In
@@ -98,6 +96,12 @@ class SigninPage extends React.Component {
               </Form>
             )}
           />
+        </div>
+        <div className="wrapper_cta -right">
+          <span>Not registered? </span>
+          <Link to="/signup" className="link">
+            Sign-up
+          </Link>
         </div>
       </div>
     );
