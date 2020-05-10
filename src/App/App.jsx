@@ -2,35 +2,61 @@ import React from "react";
 import { Router, Route, Link } from "react-router-dom";
 
 import { history } from "@/_helpers";
+import { authenticationService } from "@/_services";
+import { PrivateRoute } from "@/_components";
 import { HomePage } from "@/HomePage";
 import { SigninPage } from "@/SigninPage";
+import { SignupPage } from "@/SignupPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      currentUser: null,
+    };
+  }
+
+  componentDidMount() {
+    authenticationService.currentUser.subscribe((x) =>
+      this.setState({ currentUser: x })
+    );
+  }
+
+  logout() {
+    authenticationService.logout();
+    history.push("/signin");
   }
 
   render() {
+    const { currentUser } = this.state;
     return (
       <Router history={history}>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="navbar-nav">
-              <Link to="/" className="nav-item nav-link">
-                Home
-              </Link>
-              <Link to="/signin" className="nav-item nav-link">
-                Sign In
-              </Link>
-            </div>
-          </nav>
+          {currentUser && (
+            <nav className="navbar navbar-expand navbar-dark bg-dark">
+              <div className="navbar-nav">
+                <Link to="/" className="nav-item nav-link">
+                  Home
+                </Link>
+                <Link to="/signin" className="nav-item nav-link">
+                  Sign-In
+                </Link>
+                <Link to="/signup" className="nav-item nav-link">
+                  Sign-Up
+                </Link>
+                <a onClick={this.logout} className="nav-item nav-link">
+                  Logout
+                </a>
+              </div>
+            </nav>
+          )}
           <div className="container">
             <div className="row">
               <div className="col-md-6 offset-md-3">
-                <Route exact path="/" component={HomePage} />
+                <PrivateRoute exact path="/" component={HomePage} />
                 <Route path="/signin" component={SigninPage} />
+                <Route path="/signup" component={SignupPage} />
               </div>
             </div>
           </div>
